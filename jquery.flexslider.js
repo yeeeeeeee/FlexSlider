@@ -11,7 +11,7 @@
   //FlexSlider: Object Instance
   $.flexslider = function(el, options) {
     var slider = $(el);
-	
+
     // making variables public
 
     //if rtl value was not passed and html is in rtl..enable it by default.
@@ -19,7 +19,7 @@
   		options.rtl=true;
     }
     slider.vars = $.extend({}, $.flexslider.defaults, options);
-    
+
     var namespace = slider.vars.namespace,
         msGesture = window.navigator && window.navigator.msPointerEnabled && window.MSGesture,
         touch = (( "ontouchstart" in window ) || msGesture || window.DocumentTouch && document instanceof DocumentTouch) && slider.vars.touch,
@@ -106,7 +106,7 @@
           $(document).bind('keyup', function(event) {
             var keycode = event.keyCode;
             if (!slider.animating && (keycode === 39 || keycode === 37)) {
-              var target = (slider.vars.rtl? 
+              var target = (slider.vars.rtl?
                                 ((keycode === 37) ? slider.getTarget('next') :
                                 (keycode === 39) ? slider.getTarget('prev') : false)
                                 :
@@ -178,7 +178,7 @@
                     target = $slide.index();
         				var posFromX;
                 if(slider.vars.rtl){
-        					posFromX = -1*($slide.offset().right - $(slider).scrollLeft()); // Find position of slide relative to right of slider container	
+        					posFromX = -1*($slide.offset().right - $(slider).scrollLeft()); // Find position of slide relative to right of slider container
         				}
         				else
         				{
@@ -795,12 +795,12 @@
             //slider.slides.eq(slider.currentSlide).fadeOut(slider.vars.animationSpeed, slider.vars.easing);
             //slider.slides.eq(target).fadeIn(slider.vars.animationSpeed, slider.vars.easing, slider.wrapup);
 
-            slider.slides.eq(slider.currentSlide).css({"zIndex": 1}).animate({"opacity": 0}, slider.vars.animationSpeed, slider.vars.easing);
-            slider.slides.eq(target).css({"zIndex": 2}).animate({"opacity": 1}, slider.vars.animationSpeed, slider.vars.easing, slider.wrapup);
+            slider.slides.eq(slider.currentSlide).css({"zIndex": 1, "display": "none"}).animate({"opacity": 0}, slider.vars.animationSpeed, slider.vars.easing);
+            slider.slides.eq(target).css({"zIndex": 2, "display": "block"}).animate({"opacity": 1}, slider.vars.animationSpeed, slider.vars.easing, slider.wrapup);
 
           } else {
-            slider.slides.eq(slider.currentSlide).css({ "opacity": 0, "zIndex": 1 });
-            slider.slides.eq(target).css({ "opacity": 1, "zIndex": 2 });
+            slider.slides.eq(slider.currentSlide).css({ "opacity": 0, "zIndex": 1, "display": "none" });
+            slider.slides.eq(target).css({ "opacity": 1, "zIndex": 2, "display": "block" });
             slider.wrapup(dimension);
           }
         }
@@ -974,12 +974,12 @@
           if (!touch) {
             //slider.slides.eq(slider.currentSlide).fadeIn(slider.vars.animationSpeed, slider.vars.easing);
             if (slider.vars.fadeFirstSlide == false) {
-              slider.slides.css({ "opacity": 0, "display": "block", "zIndex": 1 }).eq(slider.currentSlide).css({"zIndex": 2}).css({"opacity": 1});
+              slider.slides.css({ "opacity": 0, "display": "none", "zIndex": 1 }).eq(slider.currentSlide).css({"zIndex": 2, "display": "block"}).css({"opacity": 1});
             } else {
-              slider.slides.css({ "opacity": 0, "display": "block", "zIndex": 1 }).eq(slider.currentSlide).css({"zIndex": 2}).animate({"opacity": 1},slider.vars.animationSpeed,slider.vars.easing);
+              slider.slides.css({ "opacity": 0, "display": "none", "zIndex": 1 }).eq(slider.currentSlide).css({"zIndex": 2, "display": "block"}).animate({"opacity": 1},slider.vars.animationSpeed,slider.vars.easing);
             }
           } else {
-            slider.slides.css({ "opacity": 0, "display": "block", "webkitTransition": "opacity " + slider.vars.animationSpeed / 1000 + "s ease", "zIndex": 1 }).eq(slider.currentSlide).css({ "opacity": 1, "zIndex": 2});
+            slider.slides.css({ "opacity": 0, "display": "none", "webkitTransition": "opacity " + slider.vars.animationSpeed / 1000 + "s ease", "zIndex": 1 }).eq(slider.currentSlide).css({ "opacity": 1, "zIndex": 2, "display": "block"});
           }
         }
         // SMOOTH HEIGHT:
